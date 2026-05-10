@@ -79,7 +79,7 @@ export function TradeCard() {
   const isPending = isWritePending || isTxConfirming;
 
   return (
-    <div className="glass-card">
+    <div className="trade-card">
       <div className="tabs">
         <div 
           className={`tab ${activeTab === 'buy' ? 'active' : ''}`}
@@ -135,7 +135,7 @@ export function TradeCard() {
         </>
       )}
       
-      {isTxSuccess && <p style={{ color: '#4ade80', textAlign: 'center', marginTop: '1rem', fontSize: '0.875rem' }}>Transaction Successful!</p>}
+      {isTxSuccess && <p className="text-success text-center mt-4 text-sm">Transaction Successful!</p>}
     </div>
   );
 }

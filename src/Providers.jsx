@@ -2,6 +2,7 @@ import { createAppKit } from '@reown/appkit/react'
 import { WagmiProvider } from 'wagmi'
 import { base } from '@reown/appkit/networks'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { fallback, http } from 'viem'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 
 // 0. Setup queryClient
@@ -25,7 +26,15 @@ const networks = [base]
 const wagmiAdapter = new WagmiAdapter({
   networks,
   projectId,
-  ssr: false
+  ssr: false,
+  transports: {
+    [base.id]: fallback([
+      http('https://base-mainnet.g.alchemy.com/v2/sjwwAR4WKLjP1b9yNfSBC'),
+      http('https://base-mainnet.g.alchemy.com/v2/6DIF9XAwdGtFLzDvfemr7'),
+      http('https://base-mainnet.g.alchemy.com/v2/2dynRIMQ2FAo4HmgJp9FG'),
+      http() // default public rpc as final fallback
+    ])
+  }
 })
 
 // 5. Create AppKit modal
